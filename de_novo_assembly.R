@@ -14,8 +14,8 @@
 ################################################################################
 # sek - soubor readu, ktere skladame do contigu
 sek = c('CATGC', 'CTAAGT', 'GCTA', 'TTCA', 'ATGCATC')
-sek1 <- sek[1]
-sek2 <- sek[2]
+sek1 <- sek[4]
+sek2 <- sek[5]
 
 ################################################################################
 Prekryv = function(sek1,sek2){
@@ -45,14 +45,48 @@ Prekryv = function(sek1,sek2){
       break
     }
   }
-  if (Lpre1 > Lpre2){
-    return(prekryv1)
-  }
-  
-  return(prekryv2)
+  if (Lpre1 == 0 && Lpre2 == 0){
+    return('-')
+  } else if (Lpre2 >= Lpre1){
+    return(prekryv2)
+  } else{
+    return(prekryv1)}
 }
 
-Prekryv(sek1,sek2)
+
+################################################################################
+MaticePrekryvu <- function(sek){
+  pocet <- length(sek)
+  matice <- matrix(data = NA, nrow = (pocet-1), ncol = (pocet-1))
+  polovina <- 1
+  # vyplneni matice
+  for (i in 1:(pocet-1)) {      # radky matice
+    for (j in polovina:(pocet-1)) {    # sloupce matice
+      matice[i,j] <- Prekryv(sek[i],sek[j+1])
+    }
+    polovina <- polovina + 1
+  }
+  return(matice)
+}
+  
+
+################################################################################
+Spojeni <- function(prekryv, sek1, sek2){
+  
+  
+}
 
 
+################################################################################
+SuperString <- function(sek){
+  while (sek > 1) {
+    matice <- MaticePrekryvu(sek)
+    # najit nejdelsi prvek v matici which.max()
+    prvek <- max(max(matice))
+    # urcit, ktere ready byly vybrane
+    
+    # vytvoreni noveho S vektoru = pradani spojeni a smazani 2 readu
+  }
+
+}
 
