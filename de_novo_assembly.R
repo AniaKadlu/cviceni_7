@@ -14,7 +14,7 @@
 ################################################################################
 # sek - soubor readu, ktere skladame do contigu
 sek = c('CATGC', 'CTAAGT', 'GCTA', 'TTCA', 'ATGCATC')
-sek1 <- sek[4]
+sek1 <- sek[1]
 sek2 <- sek[5]
 
 ################################################################################
@@ -57,21 +57,23 @@ Prekryv = function(sek1,sek2){
 ################################################################################
 MaticePrekryvu <- function(sek){
   pocet <- length(sek)
-  matice <- matrix(data = NA, nrow = (pocet-1), ncol = (pocet-1))
+  mat_pre <- matrix(data = NA, nrow = (pocet-1), ncol = (pocet-1))
+  mat_del <- matrix(data = NA, nrow = (pocet-1), ncol = (pocet-1))
   polovina <- 1
   # vyplneni matice
   for (i in 1:(pocet-1)) {      # radky matice
     for (j in polovina:(pocet-1)) {    # sloupce matice
-      matice[i,j] <- Prekryv(sek[i],sek[j+1])
+      mat_pre[i,j] <- Prekryv(sek[i],sek[j+1])
+      mat_del[i,j] <- length(mat_pre[i,j])
     }
     polovina <- polovina + 1
   }
-  return(matice)
+  return(c(mat_pre,mat_del))
 }
   
 
 ################################################################################
-Spojeni <- function(prekryv, sek1, sek2){
+Spojeni <- function(mat_pre, mat_del, sek){
   
   
 }
